@@ -1,0 +1,4 @@
+services:
+    gb_platform.antispam:
+        class: GB\PlatformBundle\Antispam\GBAntispam
+        arguments : [@mailer, %locale%, 50]

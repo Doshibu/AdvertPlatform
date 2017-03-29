@@ -1,0 +1,3 @@
+gb_platform:
+    resource: "@GBPlatformBundle/Resources/config/routing.yml"
+    prefix:   /platform

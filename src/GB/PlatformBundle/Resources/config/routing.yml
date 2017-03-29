@@ -1,0 +1,33 @@
+﻿gb_platform_home_:
+  path :   /
+  defaults: { _controller: GBPlatformBundle:Advert:index }
+
+gb_platform_home:
+    path :   /{page}
+    defaults: 
+        _controller : GBPlatformBundle:Advert:index
+        page: 1
+    requirements:
+        page: \d*
+
+gb_platform_view:
+    path :   /advert/{id}
+    defaults: { _controller : GBPlatformBundle:Advert:view }
+    requirements:
+        id: \d+
+
+gb_platform_add:
+    path :   /add
+    defaults: { _controller : GBPlatformBundle:Advert:add }
+
+gb_platform_edit:
+    path :   /edit/{id}
+    defaults: { _controller : GBPlatformBundle:Advert:edit }
+    requirements:
+        id: \d+
+
+gb_platform_delete:
+    path :   /delete/{id}
+    defaults: { _controller : GBPlatformBundle:Advert:delete }
+    requirements:
+        id: \d+

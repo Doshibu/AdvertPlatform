@@ -1,0 +1,76 @@
+{% extends "GBPlatformBundle::layout.html.twig" %}
+
+{% block title %}
+	Lecture d'une annonce - {{ parent() }}
+{% endblock %}
+
+{% block gbplatform_body %}
+	{# On vérifie qu'une image soit bien associée à l'annonce #}
+	{% if advert.image is not null %}
+	  <img src="{{ advert.image.url }}" alt="{{ advert.image.alt }}">
+	{% endif %}
+	<h2>{{ advert.title }}</h2>
+	<i>Par {{ advert.author }}, le {{ advert.date|date('d/m/Y') }}</i>
+	{% if not advert.categories.empty %}
+	  <p>
+	    {% for category in advert.categories %}
+	    	<span class="label label-info">{{ category.name }}</span>
+	      {#{ category.name }}{% if not loop.last %}, {% endif %}#}
+	    {% endfor %}
+	  </p>
+	{% endif %}
+	<div class="well">
+		{{ advert.content }}
+	</div>
+
+	{% if listAdvertSkills|length > 0 %}
+	  <div>
+	    Cette annonce requiert les compétences suivantes :
+	    <table class="table table-striped">
+		    <thead>
+		      <tr>
+		        <th>Compétences</th>
+		        <th>Niveau</th>
+		      </tr>
+		    </thead>
+		    <tbody>
+		    {% for advertSkill in listAdvertSkills %}
+				<tr>
+			        <td>{{ advertSkill.skill.name }}</td>
+			        <td>{{ advertSkill.level }}</td>
+			   	</tr>
+	      	{% endfor %}
+		    </tbody>
+		  </table>
+	  </div>
+	{% endif %}
+
+	<p>
+		<a href="{{ path('gb_platform_home') }}" class="btn btn-default">
+			<i class="glyphicon glyphicon-chevron-left"></i>
+			Retour à la liste
+		</a>
+		<a href="{{ path('gb_platform_edit', {'id': advert.id}) }}" class="btn btn-default">
+			<i class="glyphicon glyphicon-edit"></i>
+			Modifier l'annonce
+		</a>
+		<a href="{{ path('gb_platform_delete', {'id': advert.id}) }}" class="btn btn-danger">
+			<i class="glyphicon glyphicon-trash"></i>
+			Supprimer l'annonce
+		</a>
+	</p>
+
+	<div class="col-md-12 panel panel-default">
+	  <div class="panel-heading"><h3>Commentaires</h3></div>
+	  <div class="panel-body">
+	  	{% for app in listApplications %}
+	  		<div class="well">
+	  			<i>[{{ app.date|date('d/m/Y') }}]</i>
+	  			<strong>{{ app.author }}&nbsp;:</strong><br />
+	  			{{ app.content }}<br />
+	  		</div>
+		{% endfor %}
+	  </div>
+	</div>
+
+{% endblock %}
