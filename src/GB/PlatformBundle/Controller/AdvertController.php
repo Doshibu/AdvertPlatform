@@ -129,7 +129,7 @@ class AdvertController extends Controller
 
 		if($advert === null)
 		{
-			throw new NotFoundHttpExceptionException('L\'annonce d\'id '.$id.' n\'existe pas.');		
+			throw new NotFoundHttpException('L\'annonce d\'id '.$id.' n\'existe pas.');		
 		}
 
 		// La méthode findAll retourne toutes les catégories de la base de données
@@ -186,10 +186,10 @@ class AdvertController extends Controller
 		return $this->render('GBPlatformBundle:Advert:delete.html.twig');
 	}
 
-	public function menuAction()
+	public function menuAction($limit)
 	{
 		// On récupère les annonces du mois
-		$listAdverts = $this->getDoctrine()->getManager()->getRepository('GBPlatformBundle:Advert')->findAdvertForCurrentMonth();
+		$listAdverts = $this->getDoctrine()->getManager()->getRepository('GBPlatformBundle:Advert')->findAdvertForCurrentMonth('DESC', $limit);
 
 		return $this->render('GBPlatformBundle:Advert:menu.html.twig', array(
       // Tout l'intérêt est ici : le contrôleur passe

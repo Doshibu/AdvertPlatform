@@ -31,15 +31,24 @@
 	</nav>
 	<div class="col-md-12">
 		<div class="col-md-3">
-			<h4>Dernières annonces</h4>
-			{{ render(controller("GBPlatformBundle:Advert:menu", {'limit': 3})) }}
+			<div class="panel panel-default">
+				<div class="panel-heading"><h4>Dernières annonces</h4></div>
+				<div class="panel-body">
+					{{ render(controller("GBPlatformBundle:Advert:menu", {'limit': 8})) }}
+				</div>
+			</div>
 		</div>
-		<div id="content" class="col-md-6">
+		<div id="content" class="col-md-7">
 			{% block body %}
 			{% endblock %}
 		</div>
-		<div class="col-md-3">
-
+		<div class="col-md-2">
+			<div class="panel panel-default">
+				<div class="panel-heading"><h4>Nombre d'annonces par catégorie</h4></div>
+				<div class="panel-body">
+					{{ render(controller("GBPlatformBundle:Advert:menu", {'limit': 8})) }}
+				</div>
+			</div>
 		</div>
 	</div>
 	<footer>

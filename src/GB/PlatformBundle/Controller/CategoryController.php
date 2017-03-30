@@ -15,7 +15,15 @@ class CategoryController extends Controller
 {
     public function indexAction(Request $request)
     {
+        $listCategory = $this->getDoctrine()->getManager()->getRepository('GBPlatformBundle:Category')->findAll();
 
+        if($listCategory === null)
+        {
+            throw new NotFoundHttpException("Il n'y a actuellement pas de catégories.");
+        }
+
+        return $this->render('GBPlatformBundle:Category:index.html.twig', array(
+            'listCategory' => $listCategory));
     }
 
     public function viewAction($id)
@@ -28,10 +36,10 @@ class CategoryController extends Controller
 
         if($cat === null)
         {
-            throw new NotFoundHttpException("L'annonce d'id ".$id." n'existe pas.");
+            throw new NotFoundHttpException("La catégorie d'id ".$id." n'existe pas.");
         }
 
-        return $this->render('GBPlatformBundle:Advert:view.html.twig', array(
+        return $this->render('GBPlatformBundle:Category:view.html.twig', array(
             'category' => $cat,
             ));
     }

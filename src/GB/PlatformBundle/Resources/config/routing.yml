@@ -1,6 +1,7 @@
 ﻿gb_platform_home_:
-  path :   /
-  defaults: { _controller: GBPlatformBundle:Advert:index }
+    path :   /
+    defaults:
+        _controller: GBPlatformBundle:Advert:index
 
 gb_platform_home:
     path :   /{page}
@@ -10,37 +11,40 @@ gb_platform_home:
     requirements:
         page: \d*
 
-
-## ADVERT ROUTES
 gb_platform_view:
     path :   /advert/{id}
-    defaults: { _controller : GBPlatformBundle:Advert:view }
+    defaults: 
+        _controller : GBPlatformBundle:Advert:view
     requirements:
         id: \d+
 
 gb_platform_add:
     path :   /add
-    defaults: { _controller : GBPlatformBundle:Advert:add }
+    defaults:
+        _controller : GBPlatformBundle:Advert:add
 
 gb_platform_edit:
     path :   /edit/{id}
-    defaults: { _controller : GBPlatformBundle:Advert:edit }
+    defaults:
+        _controller : GBPlatformBundle:Advert:edit
     requirements:
         id: \d+
 
 gb_platform_delete:
     path :   /delete/{id}
-    defaults: { _controller : GBPlatformBundle:Advert:delete }
+    defaults:
+        _controller : GBPlatformBundle:Advert:delete
     requirements:
         id: \d+
 
-## CATEGORY ROUTES -- Curenntly bugged :/
 gb_platform_cat:
     path :   /cat
-    defaults: { _controller : GBPlatformBundle:Category:index }
+    defaults:
+        _controller : GBPlatformBundle:Category:index
 
 gb_platform_cat_view:
-    path : /cat/{id}
-    defaults: { _controller : GBPlatformBundle:Category:view }
+    path :   /cat/{id}
+    defaults:
+        _controller : GBPlatformBundle:Category:view
     requirements:
         id: \d+
