@@ -17,33 +17,7 @@ class AdvertController extends Controller
 {
 	public function indexAction(Request $request, $page = 1)
 	{
-		/*if ($page < 1) 
-		{
-			throw new NotFoundHttpException('Page "'.$page.'" inexistante.');
-		}
-		return $this->render('GBPlatformBundle:Advert:index.html.twig');*/
-		// Notre liste d'annonce en dur
-
-		$listAdverts = array(
-			array(
-				'title'   => 'Recherche développpeur Symfony2',
-				'id'      => 1,
-				'author'  => 'Alexandre',
-				'content' => 'Nous recherchons un développeur Symfony2 débutant sur Lyon. Blabla…',
-				'date'    => new \Datetime()),
-			array(
-				'title'   => 'Mission de webmaster',
-				'id'      => 2,
-				'author'  => 'Hugo',
-				'content' => 'Nous recherchons un webmaster capable de maintenir notre site internet. Blabla…',
-				'date'    => new \Datetime()),
-			array(
-				'title'   => 'Offre de stage webdesigner',
-				'id'      => 3,
-				'author'  => 'Mathieu',
-				'content' => 'Nous proposons un poste pour webdesigner. Blabla…',
-				'date'    => new \Datetime())
-			);
+		$listAdverts = $this->getDoctrine()->getManager()->getRepository('GBPlatformBundle:Advert')->findAll();
 
     // Et modifiez le 2nd argument pour injecter notre liste
 		return $this->render('GBPlatformBundle:Advert:index.html.twig', array(
