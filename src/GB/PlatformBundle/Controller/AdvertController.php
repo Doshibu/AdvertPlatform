@@ -188,13 +188,8 @@ class AdvertController extends Controller
 
 	public function menuAction()
 	{
-    // On fixe en dur une liste ici, bien entendu par la suite
-    // on la récupérera depuis la BDD !
-		$listAdverts = array(
-			array('id' => 15, 'title' => 'Recherche développeur Symfony2'),
-			array('id' => 16, 'title' => 'Mission de webmaster'),
-			array('id' => 17, 'title' => 'Offre de stage webdesigner')
-			);
+		// On récupère les annonces du mois
+		$listAdverts = $this->getDoctrine()->getManager()->getRepository('GBPlatformBundle:Advert')->findAdvertForCurrentMonth();
 
 		return $this->render('GBPlatformBundle:Advert:menu.html.twig', array(
       // Tout l'intérêt est ici : le contrôleur passe
