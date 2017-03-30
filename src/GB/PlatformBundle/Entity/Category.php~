@@ -67,45 +67,5 @@ class Category
     {
         return $this->name;
     }
-    /**
-     * Constructor
-     */
-    public function __construct()
-    {
-        $this->adverts = new \Doctrine\Common\Collections\ArrayCollection();
-    }
-
-    /**
-     * Add advert
-     *
-     * @param \GB\PlatformBundle\Entity\Advert $advert
-     *
-     * @return Category
-     */
-    public function addAdvert(\GB\PlatformBundle\Entity\Advert $advert)
-    {
-        $this->adverts[] = $advert;
-
-        return $this;
-    }
-
-    /**
-     * Remove advert
-     *
-     * @param \GB\PlatformBundle\Entity\Advert $advert
-     */
-    public function removeAdvert(\GB\PlatformBundle\Entity\Advert $advert)
-    {
-        $this->adverts->removeElement($advert);
-    }
-
-    /**
-     * Get adverts
-     *
-     * @return \Doctrine\Common\Collections\Collection
-     */
-    public function getAdverts()
-    {
-        return $this->adverts;
-    }
 }
+
