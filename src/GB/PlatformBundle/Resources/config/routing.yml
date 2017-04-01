@@ -3,6 +3,11 @@
     defaults:
         _controller: GBPlatformBundle:Advert:index
 
+gb_platform_home_test_slug:
+    path : /test/slug
+    defaults:
+        _controller: GBPlatformBundle:Advert:test
+
 gb_platform_home:
     path :   /{page}
     defaults: 

@@ -143,6 +143,19 @@ class AdvertController extends Controller
 		    $advert->addCategory($category);
 		}
 
+		//Création d'une première candidature
+		$application1 = new Application();
+		$application1->setAuthor('Marine');
+		$application1->setContent('J\'ai toutes les qualités requises.');
+
+		//Création d'une deuxième candidature
+		$application2 = new Application();
+		$application2->setAuthor('Pierre');
+		$application2->setContent('Je suis très motivé.');		
+
+		$application1->setAdvert($advert);
+		$application2->setAdvert($advert);
+
 		$em->flush();
 
 		if ($request->isMethod('POST')) 
@@ -196,6 +209,21 @@ class AdvertController extends Controller
       // les variables nécessaires au template !
 			'listAdverts' => $listAdverts
 			));
+	}
+
+	public function testAction()
+	{
+	  $advert = new Advert();
+	  $advert->setTitle("Recherche développeur !");
+	  $advert->setAuthor('Marine');
+	  $advert->setContent("Nous recherchons un développeur Symfony débutant sur Lyon. Blabla…");
+
+	  $em = $this->getDoctrine()->getManager();
+	  $em->persist($advert);
+	  $em->flush(); // C'est à ce moment qu'est généré le slug
+
+	  return new Response('Slug généré : '.$advert->getSlug());
+	  // Affiche « Slug généré : recherche-developpeur »
 	}
 }
 

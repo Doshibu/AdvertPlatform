@@ -5,7 +5,7 @@ tout comme le template inclus avec {{ include() }}. #}
 	{% for advert in listAdverts %}
 		<li>
 			<a href="{{ path('gb_platform_view', {'id': advert.id}) }}">
-				{{ advert.title }}
+				{{ advert.title }}&nbsp;({{ advert.nbApplications }})
 			</a>
 		</li>
 	{% endfor %}

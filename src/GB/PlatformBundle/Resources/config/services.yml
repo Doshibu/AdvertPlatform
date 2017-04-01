@@ -2,3 +2,8 @@ services:
     gb_platform.antispam:
         class: GB\PlatformBundle\Antispam\GBAntispam
         arguments : [@mailer, %locale%, 50]
+    gb_platform.doctrine.notification:
+        class: GB\PlatformBundle\DoctrineListener\ApplicationNotification
+        arguments: [@mailer]
+        tags:
+            - { name: doctrine.event_listener, event: postPersist }
