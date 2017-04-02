@@ -151,4 +151,16 @@ class AdvertRepository extends EntityRepository
 	      ->getResult()
 	    ;
 	}
+
+	public function getAdverts()
+	{
+		$query = $this->createQueryBuilder('a')
+			->leftJoin('a.image', 'i')
+			->addSelect('i')
+			->leftJoin('a.categories', 'c')
+			->addSelect('c')
+			->orderBy('a.date', 'DESC')
+			->getQuery();
+		return $query->getResult();
+	}
 }
