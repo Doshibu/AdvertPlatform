@@ -10,34 +10,6 @@
 
 	<ul>
 		{% for advert in listAdverts %}
-			{#
-<table class="table table-striped">
-    <thead>
-      <tr>
-        <th>Firstname</th>
-        <th>Lastname</th>
-        <th>Email</th>
-      </tr>
-    </thead>
-    <tbody>
-      <tr>
-        <td>John</td>
-        <td>Doe</td>
-        <td>john@example.com</td>
-      </tr>
-      <tr>
-        <td>Mary</td>
-        <td>Moe</td>
-        <td>mary@example.com</td>
-      </tr>
-      <tr>
-        <td>July</td>
-        <td>Dooley</td>
-        <td>july@example.com</td>
-      </tr>
-    </tbody>
-  </table>
-			#}
 			<li>
 				<a href="{{ path('gb_platform_view', {'id': advert.id}) }}">
 					{{ advert.title }}
@@ -50,4 +22,12 @@
 		{% endfor %}
 	</ul>
 
+  <ul class="pagination">
+    {# On utilise la fonction range(a, b) qui crée un tableau de valeurs entre a et b #}
+    {% for p in range(1, nbPages) %}
+      <li{% if p == page %} class="active"{% endif %}>
+        <a href="{{ path('gb_platform_home', {'page': p}) }}">{{ p }}</a>
+      </li>
+    {% endfor %}
+  </ul>
 {% endblock %}

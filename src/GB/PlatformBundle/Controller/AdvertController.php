@@ -21,13 +21,23 @@ class AdvertController extends Controller
 		{
 		    throw $this->createNotFoundException("La page ".$page." n'existe pas.");
 		}
+
+		$nbPerPage = 3;
 		$listAdverts = $this->getDoctrine()->getManager()
 			->getRepository('GBPlatformBundle:Advert')
-			->getAdverts();
+			->getAdverts($page, $nbPerPage);
+		$nbPages = ceil(count($listAdverts)/$nbPerPage);
+
+		if ( $page > $nbPages )
+		{
+			throw $this->createNotFoundException('La page '. $page .' n\'existe pas.');
+		}
 
 		return $this->render('GBPlatformBundle:Advert:index.html.twig', array(
-			'listAdverts' => $listAdverts
-			));
+			'listAdverts'	=> $listAdverts,
+			'nbPages'		=>$nbPages,
+			'page' 			=> $page
+		));
 	}
 
 	public function viewAction($id)
@@ -54,7 +64,7 @@ class AdvertController extends Controller
 			'advert' => $advert,
 			'listApplications' => $listApplications,
 			'listAdvertSkills' => $listAdvertSkills
-			));
+		));
 	}
 
 	public function addAction(Request $request)
@@ -90,10 +100,10 @@ class AdvertController extends Controller
    		// Ici, on s'occupera de la création et de la gestion du formulaire
 		return $this->render('GBPlatformBundle:Advert:edit.html.twig', array(
 			'advert' => $advert
-			));
+		));
 	}
 
-	public function deleteAction($id, Request $request)
+	public function deleteAction(Request $request, $id)
 	{
     	// On récupère l'EntityManager
 		$em = $this->getDoctrine()->getManager();
@@ -109,7 +119,7 @@ class AdvertController extends Controller
 
 		if ($request->isMethod('POST')) 
 		{
-      		// Si la requête est en POST, on deletea l'article
+      		// Si la requête est en POST, on delete l'article
 			$request->getSession()->getFlashBag()->add('info', 'Annonce bien supprimée.');
 
       		// Puis on redirige vers l'accueil
@@ -119,17 +129,20 @@ class AdvertController extends Controller
     	// Si la requête est en GET, on affiche une page de confirmation avant de delete
 		return $this->render('GBPlatformBundle:Advert:delete.html.twig', array(
 			'advert' => $advert
-			));
+		));
 	}
 
 	public function menuAction($limit)
 	{
 		// On récupère les annonces du mois
-		$listAdverts = $this->getDoctrine()->getManager()->getRepository('GBPlatformBundle:Advert')->findAdvertForCurrentMonth('DESC', $limit);
+		$listAdverts = $this->getDoctrine()
+			->getManager()
+			->getRepository('GBPlatformBundle:Advert')
+			->findAdvertForCurrentMonth('DESC', $limit);
 
 		return $this->render('GBPlatformBundle:Advert:menu.html.twig', array(
 			'listAdverts' => $listAdverts
-			));
+		));
 	}
 }
 

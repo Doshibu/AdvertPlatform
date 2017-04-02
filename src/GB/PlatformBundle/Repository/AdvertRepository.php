@@ -3,6 +3,7 @@
 namespace GB\PlatformBundle\Repository;
 
 use Doctrine\ORM\EntityRepository;
+use Doctrine\ORM\Tools\Pagination\Paginator;
 
 /**
  * AdvertRepository
@@ -152,7 +153,7 @@ class AdvertRepository extends EntityRepository
 	    ;
 	}
 
-	public function getAdverts()
+	public function getAdverts($page, $nbPerPage)
 	{
 		$query = $this->createQueryBuilder('a')
 			->leftJoin('a.image', 'i')
@@ -161,6 +162,10 @@ class AdvertRepository extends EntityRepository
 			->addSelect('c')
 			->orderBy('a.date', 'DESC')
 			->getQuery();
-		return $query->getResult();
+
+		$query->setFirstResult(($page-1) * $nbPerPage)
+			->setMaxResults($nbPerPage);
+
+		return new Paginator($query, true);
 	}
 }
