@@ -4,6 +4,11 @@
 	Annonces - {{ parent() }}
 {% endblock %}
 
+{% block stylesheets %}
+	{{ parent() }}
+	<link href="{{ asset('css/style.css') }}" rel="stylesheet" />
+{% endblock %}
+
 {% block body %}
 
 	{# On définit un sous-titre commun à toutes les pages du bundle, par exemple #}

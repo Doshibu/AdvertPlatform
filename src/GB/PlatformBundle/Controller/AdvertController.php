@@ -12,6 +12,8 @@ use GB\PlatformBundle\Entity\Advert;
 use GB\PlatformBundle\Entity\Image;
 use GB\PlatformBundle\Entity\Application;
 use GB\PlatformBundle\Entity\AdvertSkill;
+use GB\PlatformBundle\Form\AdvertType;
+use GB\PlatformBundle\Form\AdvertEditType;
 
 class AdvertController extends Controller
 {
@@ -22,7 +24,7 @@ class AdvertController extends Controller
 		    throw $this->createNotFoundException("La page ".$page." n'existe pas.");
 		}
 
-		$nbPerPage = 3;
+		$nbPerPage = 8;
 		$listAdverts = $this->getDoctrine()->getManager()
 			->getRepository('GBPlatformBundle:Advert')
 			->getAdverts($page, $nbPerPage);
@@ -69,7 +71,7 @@ class AdvertController extends Controller
 
 	public function addAction(Request $request)
 	{
-    	// La gestion d'un formulaire est particulière, mais l'idée est la suivante :
+    	/*// La gestion d'un formulaire est particulière, mais l'idée est la suivante :
 		if ($request->isMethod('POST')) 
 		{
       		// Ici, on s'occupera de la création et de la gestion du formulaire
@@ -80,10 +82,35 @@ class AdvertController extends Controller
 		}
 
     	// Si on n'est pas en POST, alors on affiche le formulaire
-		return $this->render('GBPlatformBundle:Advert:add.html.twig');
+		return $this->render('GBPlatformBundle:Advert:add.html.twig');*/
+
+		// On crée un objet Advert
+	    $advert = new Advert();
+
+	    // On crée le FormBuilder grâce au service form factory
+	    $form = $this->createForm(new AdvertType(), $advert);
+
+	    $form->handleRequest($request);
+		if ($form->isValid()) 
+		{
+      		// On l'enregistre notre objet $advert dans la base de données, par exemple
+	    	$em = $this->getDoctrine()->getManager();
+	    	$em->persist($advert);
+	    	$em->flush();
+
+	    	$request->getSession()->getFlashBag()->add('notice', 'Annonce bien enregistrée.');
+	      	// On redirige vers la page de visualisation de l'annonce nouvellement créée
+		    return $this->redirect($this->generateUrl('gb_platform_view', array('id' => $advert->getId())));
+	    }
+
+	    // On passe la méthode createView() du formulaire à la vue
+	    // afin qu'elle puisse afficher le formulaire toute seule
+	    return $this->render('GBPlatformBundle:Advert:add.html.twig', array(
+	      'form' => $form->createView(),
+	    ));
 	}
 
-	public function editAction($id)
+	public function editAction(Request $request, $id)
 	{
     	// On récupère l'EntityManager
 		$em = $this->getDoctrine()->getManager();
@@ -97,9 +124,24 @@ class AdvertController extends Controller
 			throw $this->createNotFoundException("L'annonce d'id ".$id." n'existe pas.");
 		}
 
+		$form = $this->createForm(new AdvertEditType(), $advert);
+		$form->handleRequest($request);
+		if ($form->isValid()) 
+		{
+      		// On l'enregistre notre objet $advert dans la base de données, par exemple
+	    	$em = $this->getDoctrine()->getManager();
+	    	$em->persist($advert);
+	    	$em->flush();
+
+	    	$request->getSession()->getFlashBag()->add('notice', 'Annonce bien modifiée.');
+	      	// On redirige vers la page de visualisation de l'annonce nouvellement créée
+		    return $this->redirect($this->generateUrl('gb_platform_view', array('id' => $advert->getId())));
+	    }
+
    		// Ici, on s'occupera de la création et de la gestion du formulaire
 		return $this->render('GBPlatformBundle:Advert:edit.html.twig', array(
-			'advert' => $advert
+			'advert' 	=> $advert,
+			'form'		=> $form->createView()
 		));
 	}
 

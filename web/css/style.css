@@ -1,0 +1,11 @@
+#advertImg {
+	width: 80%;
+	height: 300px;
+	margin: auto;
+	display: block;
+	border-radius: 15px;
+}
+
+#advertActionBlock {
+	text-align: center;
+}

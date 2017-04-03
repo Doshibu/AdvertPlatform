@@ -7,7 +7,7 @@
 {% block gbplatform_body %}
 	{# On vérifie qu'une image soit bien associée à l'annonce #}
 	{% if advert.image is not null %}
-	  <img src="{{ advert.image.url }}" alt="{{ advert.image.alt }}">
+	  <img id="advertImg" src="{{ advert.image.url }}" alt="{{ advert.image.alt }}">
 	{% endif %}
 	<h2>{{ advert.title }}</h2>
 	<i>Par {{ advert.author }}, le {{ advert.date|date('d/m/Y') }}</i>
@@ -45,7 +45,7 @@
 	  </div>
 	{% endif %}
 
-	<p>
+	<p id="advertActionBlock">
 		<a href="{{ path('gb_platform_home') }}" class="btn btn-default">
 			<i class="glyphicon glyphicon-chevron-left"></i>
 			Retour à la liste
