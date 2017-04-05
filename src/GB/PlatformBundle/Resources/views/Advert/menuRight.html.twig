@@ -1,0 +1,9 @@
+<ul class="nav nav-pills nav-stacked">
+	{% for category in listCategory %}
+		<li>
+			<a href="{{ path('gb_platform_cat_view', {'id': category.id}) }}">
+				{{ category.name }}&nbsp;(?)
+			</a>
+		</li>
+	{% endfor %}
+</ul>

@@ -5,21 +5,22 @@
 {% endblock %}
 
 {% block gbplatform_body %}
+	<div class="panel-heading">
+		<h2>Modifier une annonce</h2>
+	</div>
+	<div class="panel-body">
+		{{ include("GBPlatformBundle:Advert:form.html.twig") }}
 
-	<h2>Modifier une annonce</h2>
+		<p>
+			Vous éditez une annonce déjà existante, merci de ne pas changer
+			l'esprit générale de l'annonce déjà publiée.
+		</p>
 
-	{{ include("GBPlatformBundle:Advert:form.html.twig") }}
-
-	<p>
-		Vous éditez une annonce déjà existante, merci de ne pas changer
-		l'esprit générale de l'annonce déjà publiée.
-	</p>
-
-	<p>
-		<a href="{{ path('gb_platform_view', {'id': advert.id}) }}" class="btn btn-default">
-			<i class="glyphicon glyphicon-chevron-left"></i>
-			Retour à l'annonce
-		</a>
-	</p>
-
+		<p>
+			<a href="{{ path('gb_platform_view', {'id': advert.id}) }}" class="btn btn-default">
+				<i class="glyphicon glyphicon-chevron-left"></i>
+				Retour à l'annonce
+			</a>
+		</p>
+	</div>
 {% endblock %}

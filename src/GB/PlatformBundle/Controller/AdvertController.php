@@ -25,10 +25,10 @@ class AdvertController extends Controller
 		    throw $this->createNotFoundException("La page ".$page." n'existe pas.");
 		}
 
+		$em = $this->getDoctrine()->getManager();
 		$nbPerPage = 8;
-		$listAdverts = $this->getDoctrine()->getManager()
-			->getRepository('GBPlatformBundle:Advert')
-			->getAdverts($page, $nbPerPage);
+		$listAdverts = $em->getRepository('GBPlatformBundle:Advert')
+						->getAdverts($page, $nbPerPage);
 		$nbPages = ceil(count($listAdverts)/$nbPerPage);
 
 		if ( $page > $nbPages )
@@ -175,7 +175,7 @@ class AdvertController extends Controller
 		));
 	}
 
-	public function menuAction($limit)
+	public function menuLeftAction($limit)
 	{
 		// On récupère les annonces du mois
 		$listAdverts = $this->getDoctrine()
@@ -183,8 +183,20 @@ class AdvertController extends Controller
 			->getRepository('GBPlatformBundle:Advert')
 			->findAdvertForCurrentMonth('DESC', $limit);
 
-		return $this->render('GBPlatformBundle:Advert:menu.html.twig', array(
+		return $this->render('GBPlatformBundle:Advert:menuLeft.html.twig', array(
 			'listAdverts' => $listAdverts
+		));
+	}
+
+	public function menuRightAction($limit)
+	{
+		$listCategory = $this->getDoctrine()
+			->getManager()
+			->getRepository('GBPlatformBundle:Category')
+			->findAll();
+
+		return $this->render('GBPlatformBundle:Advert:menuRight.html.twig', array(
+			'listCategory' => $listCategory
 		));
 	}
 }

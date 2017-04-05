@@ -5,22 +5,23 @@
 {% endblock %}
 
 {% block gbplatform_body %}
-
-	<h2>Suppression d'une annonce</h2>
-
-	{{ include("GBPlatformBundle:Advert:form.html.twig") }}
-
-	<div class="alert alert-danger">
-	  	<p>
-	  		Veuillez valider pour supprimer l'annonce "<i>{{ advert.title }}</i>".
-	  		<br/><strong>Cette action est irrémédiable !</strong>
-	  	</p>
+	<div class="panel-heading">
+		<h2>Suppression d'une annonce</h2>
 	</div>
+	<div class="panel-body">
+		{{ include("GBPlatformBundle:Advert:form.html.twig") }}
 
-	<p>
-		<a href="{{ path('gb_platform_home') }}" class="btn btn-default">
-			Retour à l'accueil
-		</a>
-	</p>
+		<div class="alert alert-danger">
+		  	<p>
+		  		Veuillez valider pour supprimer l'annonce "<i>{{ advert.title }}</i>".
+		  		<br/><strong>Cette action est irrémédiable !</strong>
+		  	</p>
+		</div>
 
+		<p>
+			<a href="{{ path('gb_platform_home') }}" class="btn btn-default">
+				Retour à l'accueil
+			</a>
+		</p>
+	</div>
 {% endblock %}

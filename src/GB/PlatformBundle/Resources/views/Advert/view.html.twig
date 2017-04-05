@@ -10,77 +10,78 @@
 	  <img id="advertImg" src="{{ advert.image.url }}" alt="{{ advert.image.alt }}">
 	{% endif %}
 	<h2 id="advertTitle">{{ advert.title }}</h2>#}
-	<div class="wrapper">
-		<div class="clip-text clip-text_four">{{ advert.title }}</div>
+	<div class="panel-heading">
+		Annonce : {{ advert.title }}
 	</div>
-	{% if not advert.categories.empty %}
-	  <p>
-	    {% for category in advert.categories %}
-	    	<span class="label label-info">{{ category.name }}</span>
-	      {#{ category.name }}{% if not loop.last %}, {% endif %}#}
-	    {% endfor %}
-	  </p>
-	{% endif %}
+	<div class="panel-body">
+		{% if not advert.categories.empty %}
+		  <p>
+		    {% for category in advert.categories %}
+		    	<span class="label label-info">{{ category.name }}</span>
+		      {#{ category.name }}{% if not loop.last %}, {% endif %}#}
+		    {% endfor %}
+		  </p>
+		{% endif %}
 
-	<div id="advertContent">
-		<p>
-			{{ advert.content }}
+		<div id="advertContent">
+			<p>
+				{{ advert.content }}
+			</p>
+			<div id="advertAuthor">
+				<i>Par {{ advert.author }}, le {{ advert.date|date('d/m/Y') }}</i>
+			</div>
+		</div>
+
+		<hr/>
+
+		{% if listAdvertSkills|length > 0 %}
+		  <div>
+		    Cette annonce requiert les compétences suivantes :
+		    <table class="table table-striped">
+			    <thead>
+			      <tr>
+			        <th class="col-md-6">Compétences</th>
+			        <th class="col-md-6">Niveau</th>
+			      </tr>
+			    </thead>
+			    <tbody>
+			    {% for advertSkill in listAdvertSkills %}
+					<tr>
+				        <td>{{ advertSkill.skill.name }}</td>
+				        <td>{{ advertSkill.level }}</td>
+				   	</tr>
+		      	{% endfor %}
+			    </tbody>
+			  </table>
+		  </div>
+
+		  <hr />
+		{% endif %}
+
+
+
+		<p id="advertAction">
+			<a href="{{ path('gb_platform_home') }}" class="btn btn-default">
+				<i class="glyphicon glyphicon-chevron-left"></i>
+				Retour à la liste
+			</a>
+			<a href="{{ path('gb_platform_edit', {'id': advert.id}) }}" class="btn btn-warning">
+				<i class="glyphicon glyphicon-edit"></i>
+				Modifier l'annonce
+			</a>
+			<a href="{{ path('gb_platform_delete', {'id': advert.id}) }}" class="btn btn-danger">
+				<i class="glyphicon glyphicon-trash"></i>
+				Supprimer l'annonce
+			</a>
 		</p>
-		<div id="advertAuthor">
-			<i>Par {{ advert.author }}, le {{ advert.date|date('d/m/Y') }}</i>
-		</div>
+
+		<h3>Commentaires</h3>
+		{% for app in listApplications %}
+			<div class="well">
+				<i>[{{ app.date|date('d/m/Y') }}]</i>
+				<strong>{{ app.author }}&nbsp;:</strong><br />
+				{{ app.content }}<br />
+			</div>
+		{% endfor %}
 	</div>
-
-	<hr/>
-
-	{% if listAdvertSkills|length > 0 %}
-	  <div>
-	    Cette annonce requiert les compétences suivantes :
-	    <table class="table table-striped">
-		    <thead>
-		      <tr>
-		        <th class="col-md-6">Compétences</th>
-		        <th class="col-md-6">Niveau</th>
-		      </tr>
-		    </thead>
-		    <tbody>
-		    {% for advertSkill in listAdvertSkills %}
-				<tr>
-			        <td>{{ advertSkill.skill.name }}</td>
-			        <td>{{ advertSkill.level }}</td>
-			   	</tr>
-	      	{% endfor %}
-		    </tbody>
-		  </table>
-	  </div>
-
-	  <hr />
-	{% endif %}
-
-
-
-	<p id="advertAction">
-		<a href="{{ path('gb_platform_home') }}" class="btn btn-default">
-			<i class="glyphicon glyphicon-chevron-left"></i>
-			Retour à la liste
-		</a>
-		<a href="{{ path('gb_platform_edit', {'id': advert.id}) }}" class="btn btn-warning">
-			<i class="glyphicon glyphicon-edit"></i>
-			Modifier l'annonce
-		</a>
-		<a href="{{ path('gb_platform_delete', {'id': advert.id}) }}" class="btn btn-danger">
-			<i class="glyphicon glyphicon-trash"></i>
-			Supprimer l'annonce
-		</a>
-	</p>
-
-	<h3>Commentaires</h3>
-	{% for app in listApplications %}
-		<div class="well">
-			<i>[{{ app.date|date('d/m/Y') }}]</i>
-			<strong>{{ app.author }}&nbsp;:</strong><br />
-			{{ app.content }}<br />
-		</div>
-	{% endfor %}
-
 {% endblock %}
