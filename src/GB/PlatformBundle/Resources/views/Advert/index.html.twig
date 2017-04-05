@@ -12,21 +12,32 @@
 		<ul>
 			{% for advert in listAdverts %}
 				<div class="well">
-					<a href="{{ path('gb_platform_view', {'id': advert.id}) }}">
-						{{ advert.title }}
-					</a>
-					&nbsp;-&nbsp;
-					{% if not advert.categories.empty %}
-						{% for category in advert.categories %}
-							<span class="label label-info">{{ category.name }}</span>
-							{#{ category.name }}{% if not loop.last %}, {% endif %}#}
-						{% endfor %}
+					{% if (advert.image is not null) and (advert.image.url is not null) %}
+						<div id="indexAdvertPicture">
+							<img src="{{ advert.image.url }}" alt="{{ (advert.image.alt is not null) ? advert.image.alt : 'Advert Picture' }}" title="Advert Picture">
+						</div>
 					{% endif %}
-					<br />
-					Par <a href="#">{{ advert.author }}</a>, le {{ advert.date|date('d/m/Y') }}
-					<p>
-						{{ advert.content }}
-					</p>
+					<div id="indexAdvertResume" 
+						{% if (advert.image is not null) and (advert.image.url is not null) %}
+							style="width: 75%;"
+						{% endif %}
+					>
+						<a href="{{ path('gb_platform_view', {'id': advert.id}) }}">
+							{{ advert.title }}
+						</a>
+						&nbsp;-&nbsp;
+						{% if not advert.categories.empty %}
+							{% for category in advert.categories %}
+								<span class="label label-info">{{ category.name }}</span>
+								{#{ category.name }}{% if not loop.last %}, {% endif %}#}
+							{% endfor %}
+						{% endif %}
+						<br />
+						Par <a href="#">{{ advert.author }}</a>, le {{ advert.date|date('d/m/Y') }}
+						<p>
+							{{ advert.content }}
+						</p>
+					</div>
 				</div>
 			{% else %}
 				<li>Pas (encore !) d'annonces</li>

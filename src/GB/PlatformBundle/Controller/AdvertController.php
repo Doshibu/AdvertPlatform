@@ -26,7 +26,7 @@ class AdvertController extends Controller
 		}
 
 		$em = $this->getDoctrine()->getManager();
-		$nbPerPage = 8;
+		$nbPerPage = 5;
 		$listAdverts = $em->getRepository('GBPlatformBundle:Advert')
 						->getAdverts($page, $nbPerPage);
 		$nbPages = ceil(count($listAdverts)/$nbPerPage);
@@ -188,7 +188,7 @@ class AdvertController extends Controller
 		));
 	}
 
-	public function menuRightAction($limit)
+	public function menuRightAction()
 	{
 		$listCategory = $this->getDoctrine()
 			->getManager()

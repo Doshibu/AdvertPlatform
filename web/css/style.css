@@ -28,7 +28,9 @@ h3 {
     font-size: 20px;
 }
 
-
+.well {
+    display: block;
+}
 
 #advertImg {
 	width: 80%;
@@ -54,6 +56,26 @@ h3 {
 #indexPagination {
     display: block;
     text-align: center;
+}
+
+#indexAdvertPicture {
+    display: inline-block;
+    margin: 0;
+    padding: 0;
+    width: 125px;
+    height: auto;
+    margin-right: 35px;
+}
+
+#indexAdvertPicture img {
+    width: 100%;
+    height: 100%;
+    border-radius: 100%;
+    display: block;
+}
+
+#indexAdvertResume {
+    display: inline-block;
 }
 
 /*************************************/
