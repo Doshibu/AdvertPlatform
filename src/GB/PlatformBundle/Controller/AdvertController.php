@@ -15,6 +15,7 @@ use GB\PlatformBundle\Entity\AdvertSkill;
 use GB\PlatformBundle\Form\AdvertType;
 use GB\PlatformBundle\Form\AdvertEditType;
 
+
 class AdvertController extends Controller
 {
 	public function indexAction(Request $request, $page = 1)
