@@ -11,16 +11,16 @@
 	{% endif %}
 	<h2 id="advertTitle">{{ advert.title }}</h2>#}
 	<div class="panel-heading">
-		Annonce : {{ advert.title }}
+		<h3>Annonce : {{ advert.title }}</h3>
 	</div>
 	<div class="panel-body">
 		{% if not advert.categories.empty %}
-		  <p>
-		    {% for category in advert.categories %}
-		    	<span class="label label-info">{{ category.name }}</span>
-		      {#{ category.name }}{% if not loop.last %}, {% endif %}#}
-		    {% endfor %}
-		  </p>
+			<p>
+				{% for category in advert.categories %}
+					<span class="label label-info">{{ category.name }}</span>
+					{#{ category.name }}{% if not loop.last %}, {% endif %}#}
+				{% endfor %}
+			</p>
 		{% endif %}
 
 		<div id="advertContent">
@@ -35,27 +35,27 @@
 		<hr/>
 
 		{% if listAdvertSkills|length > 0 %}
-		  <div>
-		    Cette annonce requiert les compétences suivantes :
-		    <table class="table table-striped">
-			    <thead>
-			      <tr>
-			        <th class="col-md-6">Compétences</th>
-			        <th class="col-md-6">Niveau</th>
-			      </tr>
-			    </thead>
-			    <tbody>
-			    {% for advertSkill in listAdvertSkills %}
-					<tr>
-				        <td>{{ advertSkill.skill.name }}</td>
-				        <td>{{ advertSkill.level }}</td>
-				   	</tr>
-		      	{% endfor %}
-			    </tbody>
-			  </table>
-		  </div>
+			<div>
+				Cette annonce requiert les compétences suivantes :
+				<table class="table table-striped">
+					<thead>
+						<tr>
+							<th class="col-md-6">Compétences</th>
+							<th class="col-md-6">Niveau</th>
+						</tr>
+					</thead>
+					<tbody>
+						{% for advertSkill in listAdvertSkills %}
+							<tr>
+								<td>{{ advertSkill.skill.name }}</td>
+								<td>{{ advertSkill.level }}</td>
+							</tr>
+						{% endfor %}
+					</tbody>
+				</table>
+			</div>
 
-		  <hr />
+			<hr />
 		{% endif %}
 
 

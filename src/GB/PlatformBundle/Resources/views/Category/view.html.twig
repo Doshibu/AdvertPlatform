@@ -5,24 +5,25 @@
 {% endblock %}
 
 {% block gbplatform_body %}
-
-	<h2>Listes des annonces pour la catégorie : <strong>{{ category.name }}</strong></h2>
-
-  <table class="table table-striped">
-    <thead>
-      <tr>
-        <th class="col-md-6">Titre</th>
-        <th class="col-md-6">Date</th>
-      </tr>
-    </thead>
-    <tbody>
-      {% for advert in category.adverts %}
-        <tr>
-          <td><a href="{{ path('gb_platform_view', {'id': advert.id}) }}">{{ advert.title }}</a></td>
-          <td><a href="{{ path('gb_platform_view', {'id': advert.id}) }}">{{ advert.date|date('d/m/Y') }}</a></td>
-        </tr>
-      {% endfor %}
-    </tbody>
-  </table>
-
+	<div class="panel-heading">
+		<h3>Catégorie : <strong>{{ category.name }}</strong></h3>
+	</div>
+	<div class="panel-body">
+		<table class="table table-striped">
+			<thead>
+				<tr>
+					<th class="col-md-6">Titre</th>
+					<th class="col-md-6">Date</th>
+				</tr>
+			</thead>
+			<tbody>
+				{% for advert in category.adverts %}
+					<tr>
+						<td><a href="{{ path('gb_platform_view', {'id': advert.id}) }}">{{ advert.title }}</a></td>
+						<td><a href="{{ path('gb_platform_view', {'id': advert.id}) }}">{{ advert.date|date('d/m/Y') }}</a></td>
+					</tr>
+				{% endfor %}
+			</tbody>
+		</table>
+	</div>
 {% endblock %}

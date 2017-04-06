@@ -5,24 +5,27 @@
 {% endblock %}
 
 {% block gbplatform_body %}
-
-	<h2>Liste des catégories&nbsp;:</h2>
-  <table class="table table-striped">
-    <thead>
-      <tr>
-        <th>Nom</th>
-        <th>Total d'annonces</th>
-        <th>Dernière annonce</th>
-      </tr>
-    </thead>
-    <tbody>
-      {% for cat in listCategory %}
-        <tr>
-          <td><a href="{{ path('gb_platform_cat_view', {'id': cat.id}) }}">{{ cat.name }}</a></td>
-          <td><a href="#">Total</a></td>
-          <td><a href="#">Date</a></td>
-        </tr>
-      {% endfor %}
-    </tbody>
-  </table>
+	<div class="panel-heading">
+		<h3>Liste des catégories&nbsp;:</h3>
+	</div>
+	<div class="panel-body">
+		<table class="table table-striped">
+			<thead>
+				<tr>
+					<th>Nom</th>
+					<th>Total d'annonces</th>
+					<th>Dernière annonce</th>
+				</tr>
+			</thead>
+			<tbody>
+			{% for cat in listCategory %}
+				<tr>
+					<td><a href="{{ path('gb_platform_cat_view', {'id': cat.id}) }}">{{ cat.name }}</a></td>
+					<td><a href="#">Total</a></td>
+					<td><a href="#">Date</a></td>
+				</tr>
+			{% endfor %}
+			</tbody>
+		</table>
+	</div>
 {% endblock %}

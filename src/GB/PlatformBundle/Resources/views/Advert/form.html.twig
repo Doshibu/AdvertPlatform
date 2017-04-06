@@ -1,136 +1,174 @@
-<h3>Formulaire d'annonce</h3>
+{{ form_start(form, {'attr': {'class': 'form-horizontal'}}) }}
 
-<div class="well">
-	{{ form_start(form, {'attr': {'class': 'form-horizontal'}}) }}
+{# Les erreurs générales du formulaire. #}
+{{ form_errors(form) }}
 
-	{# Les erreurs générales du formulaire. #}
-	{{ form_errors(form) }}
+<h4>Annonce</h4>
+<div class="form-group">
+	{# Génération du label. #}
+	{{ form_label(form.title, "Titre de l'annonce", {'label_attr': {'class': 'col-sm-3 control-label'}}) }}
 
+	{# Affichage des erreurs pour ce champ précis. #}
+	{{ form_errors(form.title) }}
+	<div class="col-sm-4">
+		{# Génération de l'input. #}
+		{{ form_widget(form.title, {'attr': {'class': 'form-control'}}) }}
+	</div>
+</div>
+
+<div class="form-group">
+	{{ form_label(form.content, "Contenu de l'annonce", {'label_attr': {'class': 'col-sm-3 control-label'}}) }}
+	{{ form_errors(form.title) }}
+	<div class="col-sm-4">
+		{{ form_widget(form.content, {'attr': {'class': 'form-control'}}) }}
+	</div>
+</div>
+
+{% if form.date is defined %}
 	<div class="form-group">
-		{# Génération du label. #}
-		{{ form_label(form.title, "Titre de l'annonce", {'label_attr': {'class': 'col-sm-3 control-label'}}) }}
-
-		{# Affichage des erreurs pour ce champ précis. #}
-		{{ form_errors(form.title) }}
-
+		{{ form_label(form.date, "Date", {'label_attr': {'class': 'col-sm-3 control-label'}}) }}
+		{{ form_errors(form.date) }}
 		<div class="col-sm-4">
-			{# Génération de l'input. #}
-			{{ form_widget(form.title, {'attr': {'class': 'form-control'}}) }}
+			{{ form_widget(form.date) }}
 		</div>
 	</div>
-
-	{# Idem pour un autre champ. #}
-	<div class="form-group">
-		{{ form_label(form.content, "Contenu de l'annonce", {'label_attr': {'class': 'col-sm-3 control-label'}}) }}
-		{{ form_errors(form.title) }}
-		<div class="col-sm-4">
-			{{ form_widget(form.content, {'attr': {'class': 'form-control'}}) }}
-		</div>
-	</div>
-
-	{# Génération du label + error + widget pour un champ #}
-	{% if form.date is defined %}
-		<div class="form-group">
-			{{ form_label(form.date, "Date", {'label_attr': {'class': 'col-sm-3 control-label'}}) }}
-			{{ form_errors(form.date) }}
-			<div class="col-sm-4">
-				{{ form_widget(form.date) }}
-			</div>
-		</div>
-	{% endif %}
+{% endif %}
 	
+<div class="form-group">
+	{{ form_label(form.author, "Author", {'label_attr': {'class': 'col-sm-3 control-label'}}) }}
+	{{ form_errors(form.author) }}
+	<div class="col-sm-4">
+		{{ form_widget(form.author, {'attr': {'class': 'form-control'}}) }}
+	</div>
+</div>
+
+{% if form.date is defined %}
 	<div class="form-group">
-		{{ form_label(form.author, "Author", {'label_attr': {'class': 'col-sm-3 control-label'}}) }}
-		{{ form_errors(form.author) }}
+		{{ form_label(form.published, "Published", {'label_attr': {'class': 'col-sm-3 control-label'}}) }}
+		{{ form_errors(form.published) }}
 		<div class="col-sm-4">
-			{{ form_widget(form.author, {'attr': {'class': 'form-control'}}) }}
+			{{ form_widget(form.published) }}
 		</div>
 	</div>
+{% endif %}
 
-  {% if form.date is defined %}
-  	<div class="form-group">
-  		{{ form_label(form.published, "Published", {'label_attr': {'class': 'col-sm-3 control-label'}}) }}
-  		{{ form_errors(form.published) }}
-  		<div class="col-sm-4">
-  			{{ form_widget(form.published) }}
-  		</div>
-  	</div>
-  {% endif %}
+<hr />
 
-	{# Pour le bouton, pas de label ni d'erreur, on affiche juste le widget #}
-	{{ form_widget(form.save, {'attr': {'class': 'col-sm-offset-3 btn btn-primary'}}) }}
+<h4>Image</h4>
+{% if form.image.url is defined %}
+	<div class="form-group">
+		{{ form_label(form.image.url, "Image ALT", {'label_attr': {'class': 'col-sm-3 control-label'}}) }}
+		{{ form_errors(form.image.url) }}
+		<div class="col-sm-4">
+			{{ form_widget(form.image.url, {'attr': {'class': 'form-control'}}) }}
+		</div>
+	</div>
+{% endif %}
 
-  {# Génération automatique des champs pas encore écrits.
-     Dans cet exemple, ce serait le champ CSRF (géré automatiquement par Symfony !)
-     et tous les champs cachés (type « hidden »). #}
-     {{ form_rest(form) }}
+{% if form.image.alt is defined %}
+	<div class="form-group">
+		{{ form_label(form.image.alt, "Image URL", {'label_attr': {'class': 'col-sm-3 control-label'}}) }}
+		{{ form_errors(form.image.alt) }}
+		<div class="col-sm-4">
+			{{ form_widget(form.image.alt, {'attr': {'class': 'form-control'}}) }}
+		</div>
+	</div>
+{% endif %}
 
-     {# Fermeture de la balise <form> du formulaire HTML #}
-     {{ form_end(form) }}
- </div>
+<hr />
 
- <script src="//ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
- <script type="text/javascript">
- 	$(document).ready(function() {
-    // On récupère la balise <div> en question qui contient l'attribut « data-prototype » qui nous intéresse.
-    var $container = $('div#gb_platformbundle_advert_categories');
+<h4>Catégories</h4>
+{% if form.categories is defined %}
+	<div class="form-group">
+		{{ form_label(form.categories, "Catégories", {'label_attr': {'class': 'col-sm-3 control-label'}}) }}
+		{{ form_errors(form.categories) }}
+		<div class="col-sm-4">
+			{{ form_widget(form.categories, {'attr': {'class': 'form-control'}}) }}
+		</div>
+	</div>
+{% endif %}
 
-    // On ajoute un lien pour ajouter une nouvelle catégorie
-    var $addLink = $('<a href="#" id="add_category" class="btn btn-default">Ajouter une catégorie</a>');
-    $container.append($addLink);
+{{ form_widget(form.save, {'attr': {'class': 'col-sm-offset-3 btn btn-primary'}}) }}
 
-    // On ajoute un nouveau champ à chaque clic sur le lien d'ajout.
-    $addLink.click(function(e) {
-    	addCategory($container);
-      e.preventDefault(); // évite qu'un # apparaisse dans l'URL
-      return false;
-  });
+{# Génération automatique des champs pas encore écrits.
+Dans cet exemple, ce serait le champ CSRF (géré automatiquement par Symfony !)
+et tous les champs cachés (type « hidden »). #}
+{{ form_rest(form) }}
 
-    // On définit un compteur unique pour nommer les champs qu'on va ajouter dynamiquement
-    var index = $container.find(':input').length;
+{# Fermeture de la balise <form> du formulaire HTML #}
+{{ form_end(form) }}
 
-    // On ajoute un premier champ automatiquement s'il n'en existe pas déjà un (cas d'une nouvelle annonce par exemple).
-    if (index == 0) {
-    	addCategory($container);
-    } else {
-      // Pour chaque catégorie déjà existante, on ajoute un lien de suppression
-      $container.children('div').each(function() {
-      	addDeleteLink($(this));
-      });
-  }
 
-    // La fonction qui ajoute un formulaire Categorie
-    function addCategory($container) {
-      // Dans le contenu de l'attribut « data-prototype », on remplace :
-      // - le texte "__name__label__" qu'il contient par le label du champ
-      // - le texte "__name__" qu'il contient par le numéro du champ
-      var $prototype = $($container.attr('data-prototype').replace(/__name__label__/g, 'Catégorie n°' + (index+1))
-      	.replace(/__name__/g, index));
+<script src="//ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
+<script type="text/javascript">
+	$(document).ready(function() 
+	{
+		// On récupère la balise <div> en question qui contient l'attribut « data-prototype » qui nous intéresse.
+		var $container = $('div#gb_platformbundle_advert_categories');
 
-      // On ajoute au prototype un lien pour pouvoir supprimer la catégorie
-      addDeleteLink($prototype);
+		// On ajoute un lien pour ajouter une nouvelle catégorie
+		var $addLink = $('<a href="#" id="add_category" class="btn btn-default">Ajouter une catégorie</a>');
+		$container.append($addLink);
 
-      // On ajoute le prototype modifié à la fin de la balise <div>
-      $container.append($prototype);
+		// On ajoute un nouveau champ à chaque clic sur le lien d'ajout.
+		$addLink.click(function(e) {
+			addCategory($container);
+		  e.preventDefault(); // évite qu'un # apparaisse dans l'URL
+		  return false;
+		});
 
-      // Enfin, on incrémente le compteur pour que le prochain ajout se fasse avec un autre numéro
-      index++;
-  }
+	// On définit un compteur unique pour nommer les champs qu'on va ajouter dynamiquement
+	var index = $container.find(':input').length;
 
-    // La fonction qui ajoute un lien de suppression d'une catégorie
-    function addDeleteLink($prototype) {
-      // Création du lien
-      $deleteLink = $('<a href="#" class="btn btn-danger">Supprimer</a>');
+	// On ajoute un premier champ automatiquement s'il n'en existe pas déjà un (cas d'une nouvelle annonce par exemple).
+	if (index == 0) 
+	{
+		addCategory($container);
+	} 
+	else 
+	{
+	  // Pour chaque catégorie déjà existante, on ajoute un lien de suppression
+	  $container.children('div').each(function() 
+	  {
+		addDeleteLink($(this));
+	  });
+	}
 
-      // Ajout du lien
-      $prototype.append($deleteLink);
+	// La fonction qui ajoute un formulaire Categorie
+	function addCategory($container) 
+	{
+	  // Dans le contenu de l'attribut « data-prototype », on remplace :
+	  // - le texte "__name__label__" qu'il contient par le label du champ
+	  // - le texte "__name__" qu'il contient par le numéro du champ
+	  var $prototype = $($container.attr('data-prototype').replace(/__name__label__/g, 'Catégorie n°' + (index+1))
+		.replace(/__name__/g, index));
 
-      // Ajout du listener sur le clic du lien
-      $deleteLink.click(function(e) {
-      	$prototype.remove();
-        e.preventDefault(); // évite qu'un # apparaisse dans l'URL
-        return false;
-    });
-  }
+	  // On ajoute au prototype un lien pour pouvoir supprimer la catégorie
+	  addDeleteLink($prototype);
+
+	  // On ajoute le prototype modifié à la fin de la balise <div>
+	  $container.append($prototype);
+
+	  // Enfin, on incrémente le compteur pour que le prochain ajout se fasse avec un autre numéro
+	  index++;
+	}
+
+	// La fonction qui ajoute un lien de suppression d'une catégorie
+	function addDeleteLink($prototype) 
+	{
+		// Création du lien
+		$deleteLink = $('<a href="#" class="btn btn-danger">Supprimer</a>');
+
+		// Ajout du lien
+		$prototype.append($deleteLink);
+
+		// Ajout du listener sur le clic du lien
+		$deleteLink.click(function(e) 
+		{
+			$prototype.remove();
+			e.preventDefault(); // évite qu'un # apparaisse dans l'URL
+			return false;
+		});
+	}
 });
- </script>
+</script>
