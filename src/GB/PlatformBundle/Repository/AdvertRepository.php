@@ -107,7 +107,7 @@ class AdvertRepository extends EntityRepository
 		$this->whereCurrentMonth($qb);
 
 	  	$orderBy = $orderBy === 'DESC' || $orderBy === 'ASC' ? $orderBy : 'DESC'; 
-		$qb->orderBy('a.date', $orderBy);
+		$qb->orderBy('a.updatedAt', $orderBy);
 
 		$limit = $limit > 0 && $limit <= 10 ? $limit : 10;
 		$qb->setMaxResults($limit);

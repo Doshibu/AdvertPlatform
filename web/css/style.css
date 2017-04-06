@@ -32,6 +32,10 @@ h3 {
     display: block;
 }
 
+.indexAdvertBlock {
+    height: 165px;
+}
+
 #advertImg {
 	width: 80%;
 	height: 300px;
@@ -63,8 +67,9 @@ h3 {
     margin: 0;
     padding: 0;
     width: 125px;
-    height: auto;
+    height: 100%;
     margin-right: 35px;
+    float: left;
 }
 
 #indexAdvertPicture img {
@@ -76,6 +81,11 @@ h3 {
 
 #indexAdvertResume {
     display: inline-block;
+}
+
+#indexAdvertAuthor {
+    margin: 5px 15px;
+    display: block;
 }
 
 /*************************************/

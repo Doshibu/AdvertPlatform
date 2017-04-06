@@ -11,7 +11,7 @@
 	<div class="panel-body">
 		<ul>
 			{% for advert in listAdverts %}
-				<div class="well">
+				<div class="well indexAdvertBlock">
 					{% if (advert.image is not null) and (advert.image.url is not null) %}
 						<div id="indexAdvertPicture">
 							<img src="{{ advert.image.url }}" alt="{{ (advert.image.alt is not null) ? advert.image.alt : 'Advert Picture' }}" title="Advert Picture">
@@ -32,10 +32,15 @@
 								{#{ category.name }}{% if not loop.last %}, {% endif %}#}
 							{% endfor %}
 						{% endif %}
+
 						<br />
-						Par <a href="#">{{ advert.author }}</a>, le {{ advert.date|date('d/m/Y') }}
+
+						<span id="indexAdvertAuthor">
+							Par <a href="#">{{ advert.author }}</a>, le {{ advert.date|date('d/m/Y') }}
+						</span>
+
 						<p>
-							{{ advert.content }}
+							{{ advert.content[0:396] }}&nbsp;...
 						</p>
 					</div>
 				</div>
